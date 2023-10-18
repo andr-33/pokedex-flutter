@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_pokedex/elements/SmallCard/small_card.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //models
@@ -47,11 +48,9 @@ class HomePage extends StatelessWidget{
           future: getAllPokemons(),
           builder: (context, snapshot){
             if(snapshot.hasData){
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), 
-                itemBuilder: (context, index){
-                  return Text(snapshot.data![index].name); //Hay un fallo por aca
-                }
+              return GridView.count(
+                crossAxisCount: 2,
+                children: snapshot.data!.map((pokemon) => SmallCard(pokemonCard: pokemon)).toList(),
               );
             }
             else if(snapshot.hasError){

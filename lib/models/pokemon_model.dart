@@ -13,7 +13,6 @@ class Pokemon{
     required this.stats
   });
 
-  @override
   Map<String, dynamic> toJSON(){
     return{
       'id': id,

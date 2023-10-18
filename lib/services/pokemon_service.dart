@@ -15,8 +15,8 @@ Future<Pokemon> getPokemon() async{
   }
 }
 
-Future<String> getPokemonImage(int id) async{
-  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id'));
+Future<String> getPokemonImage(String name) async{
+  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
 
   if(res.statusCode == 200){
     return jsonDecode(res.body)['sprites']['other']['dream_world']['front_default'];
@@ -27,7 +27,7 @@ Future<String> getPokemonImage(int id) async{
 }
 
 Future<List<dynamic>> getAllPokemons() async{
-  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=50'));
+  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=10'));
 
   if(res.statusCode == 200){
     return jsonDecode(res.body)['results'].map((result)=> PokemonCard(name: result['name'], infoURL: result['url'])).toList();
