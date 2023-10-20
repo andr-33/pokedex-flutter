@@ -4,8 +4,8 @@ import 'dart:convert';
 //models
 import '../models/pokemon_model.dart';
 
-Future<Pokemon> getPokemon() async{
-  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/bulbasaur'));
+Future<Pokemon> getPokemonByName(String name) async{
+  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
   
   if(res.statusCode == 200){
     return Pokemon.fromJson(jsonDecode(res.body));

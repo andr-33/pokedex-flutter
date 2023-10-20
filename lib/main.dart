@@ -1,10 +1,8 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_pokedex/elements/ImageSvg/image_svg.dart';
 import 'package:mobile_pokedex/elements/SmallCard/small_card.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-//models
-import './models/pokemon_model.dart';
+
 //services
 import './services/pokemon_service.dart';
 
@@ -32,13 +30,31 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  
+  bool isPokemonSelected = false;
+
+  void selectedPokemon(){
+    isPokemonSelected = true;
+    notifyListeners();
+  }
 }
 
 //Home page
-
 class HomePage extends StatelessWidget{
-  const HomePage({super.key});
+ 
+  @override
+  Widget build(BuildContext context){
+    var appState = context.watch<MyAppState>();
+    bool isPokemonSelected = appState.isPokemonSelected;
+
+    Widget page = isPokemonSelected ? PokemonPage(): AllPokemosPage();
+
+    return page;
+  }
+}
+
+//All pokemos page
+class AllPokemosPage extends StatelessWidget{
+  AllPokemosPage({super.key});
 
   @override
   Widget build(BuildContext context){
@@ -65,67 +81,21 @@ class HomePage extends StatelessWidget{
   }
 }
 
-
 //Pokemon page
-class PokemonPage extends StatefulWidget{
-  const PokemonPage({super.key});
-
-  @override
-  State<PokemonPage> createState()=> _PokemonPageState();
-}
-
-class _PokemonPageState extends State<PokemonPage>{
-  late Future<Pokemon> futurePokemon;
-
-  @override
-  void initState(){
-    super.initState();
-    futurePokemon = getPokemon();
-  }
+class PokemonPage extends StatelessWidget{
+  PokemonPage({super.key});
 
   @override
   Widget build(BuildContext context){
-
-    return Scaffold(
-      body: Center(
-        child: FutureBuilder<Pokemon>(
-          future: futurePokemon,
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              return PokemonView(pokemon: snapshot.data!);
-            }
-            else if(snapshot.hasError){
-              return Text('${snapshot.error}');
-            }
-
-            return const CircularProgressIndicator();
-          },
-        ),
+    return Center(
+      child: Column(
+        children: [
+          ImageSvg(width: 80, height: 80, name: "bulbasaur")
+        ],
       ),
     );
   }
 }
 
-class PokemonView extends StatelessWidget{
-  const PokemonView({super.key, required this.pokemon});
-
-  final Pokemon pokemon;
-
-  @override
-  Widget build(BuildContext context){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.network(pokemon.imgURL, width: 250, height: 250,),
-        Text(pokemon.name),
-        for(var stat in pokemon.stats)
-          Text('${stat.name}: ${stat.baseValue}'),
-        for(var type in pokemon.types)
-          Text('${type.name}')
-      ],
-    );
-  }
-
-}
 
 
