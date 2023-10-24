@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_pokedex/elements/ImageSvg/image_svg.dart';
+import 'package:mobile_pokedex/widgets/ImageSvg/image_svg.dart';
 import 'package:mobile_pokedex/main.dart';
 import 'package:mobile_pokedex/models/pokemon_model.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +30,7 @@ class SmallCard extends StatelessWidget{
         ),
         onTap: () {
          appState.selectedPokemon();
+         appState.selectedPokemonName(pokemonCard.name);
         },
       ),
     );

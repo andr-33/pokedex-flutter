@@ -28,7 +28,7 @@ class Pokemon{
       id: json['id'], 
       name: json['name'], 
       imgURL: json['sprites']['other']['dream_world']['front_default'], 
-      types: json['types'].map((type)=> Type(name: type['type']['name'])).toList(), 
+      types: json['types'].map((type)=> PokemonType(name: type['type']['name'])).toList(), 
       stats: json['stats'].map((stat)=> Stat(name: stat['stat']['name'], baseValue: stat['base_stat'])).toList()
     );
   }
@@ -44,10 +44,10 @@ class Stat{
   });
 }
 
-class Type{
+class PokemonType{
   String name;
 
-  Type({
+  PokemonType({
     required this.name
   });
 }
