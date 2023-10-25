@@ -5,6 +5,7 @@ import 'package:mobile_pokedex/models/pokemon_model.dart';
 import 'package:mobile_pokedex/widgets/StatText/stat_text.dart';
 import 'package:mobile_pokedex/widgets/TypeCard/type_card.dart';
 import 'package:provider/provider.dart';
+import 'package:string_capitalize/string_capitalize.dart';
 
 //services
 import './services/pokemon_service.dart';
@@ -104,37 +105,60 @@ class PokemonPage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
     var pokemonName = appState.pokemonNameSelected;
 
-    return Center(
-      child: Column(
-        children: [
-          ElevatedButton.icon(
-              onPressed: () {
-                appState.deselectPokemon();
-              },
-              icon: Icon(Icons.arrow_back_rounded),
-              label: Text("Exit")
-          ),
-          ImageSvg(width: 200, height: 200, name: pokemonName),
-          SizedBox(height: 15),
-          FutureBuilder<Pokemon>(
-              future: getPokemonByName(pokemonName),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: snapshot.data!.types.map((type) => TypeCard(type: type)).toList()
+    return FutureBuilder<Pokemon>(
+        future: getPokemonByName(pokemonName),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+                decoration:
+                    BoxDecoration(color: Color(0xFF6390F0).withOpacity(0.8)),
+                child: Column(
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          appState.deselectPokemon();
+                        },
+                        icon: Icon(Icons.arrow_back_rounded),
+                        label: Text("Exit")
+                    ),
+                    ImageSvg(width: 200, height: 200, name: pokemonName),
+                    SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30)),
+                          color: Colors.white
                       ),
-                      Column(children: snapshot.data!.stats.map((stat) => StatText(stat: stat)).toList()),
-                    ],
-                  );
-                } else if (snapshot.hasError) {}
+                      child: Column(
+                        children: [
+                          Text(
+                            snapshot.data!.name.capitalize(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                decoration: TextDecoration.none),
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: snapshot.data!.types
+                                  .map((type) => TypeCard(type: type))
+                                  .toList()
+                          ),
+                          Column(
+                              children: snapshot.data!.stats
+                                  .map((stat) => StatText(stat: stat))
+                                  .toList()
+                          ),
+                        ],
+                      ),
+                    )
+                  ]
+                ) 
+              );
+          } else if (snapshot.hasError) {}
 
-                return const CircularProgressIndicator();
-              })
-        ],
-      ),
-    );
+          return const CircularProgressIndicator();
+        });
   }
 }
