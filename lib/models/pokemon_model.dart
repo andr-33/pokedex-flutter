@@ -1,14 +1,16 @@
 class Pokemon{
   final int id;
   final String name;
-  final String imgURL;
+  final double height;
+  final double weight;
   final List<dynamic> types;
   final List<dynamic> stats;
 
   Pokemon({
     required this.id,
     required this.name,
-    required this.imgURL,
+    required this.height,
+    required this.weight,
     required this.types,
     required this.stats
   });
@@ -17,17 +19,26 @@ class Pokemon{
     return{
       'id': id,
       'name': name,
-      'imgURL': imgURL,
-      //'types': types,
+      'types': types,
       'stats':stats
     };
+  }
+
+  //Probar como usar estas funciones en factory
+  double normalizeHeight(int heightInDecimeters){
+    return heightInDecimeters / 10;
+  }
+
+  double normalizeWeight(int weightInGrams){
+    return weightInGrams / 100;
   }
 
   factory Pokemon.fromJson(Map<String, dynamic> json){
     return Pokemon(
       id: json['id'], 
-      name: json['name'], 
-      imgURL: json['sprites']['other']['dream_world']['front_default'], 
+      name: json['name'],
+      height: json['height'] / 10,
+      weight: json['weight'] / 10, 
       types: json['types'].map((type)=> PokemonType(name: type['type']['name'])).toList(), 
       stats: json['stats'].map((stat)=> Stat(name: stat['stat']['name'], baseValue: stat['base_stat'])).toList()
     );
