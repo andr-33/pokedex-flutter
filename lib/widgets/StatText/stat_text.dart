@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_pokedex/models/pokemon_model.dart';
+import 'package:string_capitalize/string_capitalize.dart';
 
 class StatText extends StatelessWidget{
   StatText({
@@ -13,7 +14,7 @@ class StatText extends StatelessWidget{
   Widget build(BuildContext context){
     return Row(
       children: [
-        Text(stat.name, 
+        Text(stat.name.capitalize(), 
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
