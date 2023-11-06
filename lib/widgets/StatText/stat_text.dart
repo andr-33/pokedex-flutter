@@ -12,7 +12,7 @@ class StatText extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Row(
+    return Column(
       children: [
         Text(stat.name.capitalize(), 
           style: TextStyle(
@@ -22,13 +22,19 @@ class StatText extends StatelessWidget{
             decoration: TextDecoration.none
           ) ,
         ),
-        SizedBox(width: 10,),
-        Text("${stat.baseValue}",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.normal,
-            fontSize: 20,
-            decoration: TextDecoration.none
+        Container(
+          width: 300,
+          height: 10,
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            border: Border.all(width: 2)
+          ),
+          child: LinearProgressIndicator(
+            value: 0.75,
+            backgroundColor: Colors.grey,
+            valueColor: AlwaysStoppedAnimation(Colors.amber),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         )
       ],
