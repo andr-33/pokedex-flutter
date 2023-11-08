@@ -28,6 +28,4 @@ class ColorByType{
   Color getColorByType( String type){
     return Color(color[type] ?? 0xFFE1E1E1);
   }
-
-
 }

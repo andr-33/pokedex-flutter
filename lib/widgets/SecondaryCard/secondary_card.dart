@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
-import '../StatText/stat_text.dart';
+import '../StatInformation/stat_information.dart';
 import '../TypeCard/type_card.dart';
 
 class SecondaryCard extends StatelessWidget {
@@ -91,9 +91,10 @@ class SecondaryCard extends StatelessWidget {
                 color: Colors.black12,
                 borderRadius: BorderRadius.all(Radius.circular(12))
               ),
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              margin: EdgeInsets.fromLTRB(40,10,40,0),
+              padding: EdgeInsets.only(bottom: 10),
               child:Column(
-                children: stats.map((stat) => StatText(stat: stat)).toList()
+                children: stats.map((stat) => StatInformation(stat: stat)).toList()
               ), 
             )
           ],

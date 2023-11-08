@@ -40,7 +40,7 @@ class Pokemon{
       height: json['height'] / 10,
       weight: json['weight'] / 10, 
       types: json['types'].map((type)=> PokemonType(name: type['type']['name'])).toList(), 
-      stats: json['stats'].map((stat)=> Stat(name: stat['stat']['name'], baseValue: stat['base_stat'])).toList()
+      stats: json['stats'].map((stat)=> Stat(originalName: stat['stat']['name'], baseValue: stat['base_stat'])).toList()
     );
   }
 }
@@ -50,9 +50,20 @@ class Stat{
   int baseValue;
 
   Stat({
-    required this.name,
+    required String originalName,
     required this.baseValue
-  });
+  }): name = changeStatName(originalName);
+
+  static String changeStatName(String name){
+    final Map<String, String> namesToBeChanged = {
+      "special-attack": "special Attack",
+      "special-defense": "special Defense"
+    }; 
+
+    return namesToBeChanged[name] ?? name;
+  }
+
+
 }
 
 class PokemonType{
@@ -68,7 +79,7 @@ class PokemonCard{
   String infoURL;
 
   PokemonCard({
-    required this.name,
+    required  this.name,
     required this.infoURL
   });
 }
