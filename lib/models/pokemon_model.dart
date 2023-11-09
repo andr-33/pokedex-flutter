@@ -62,8 +62,6 @@ class Stat{
 
     return namesToBeChanged[name] ?? name;
   }
-
-
 }
 
 class PokemonType{

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_pokedex/models/pokemon_model.dart';
 //collections
-import '../../collections/color_by_type.dart';
+import '../../../collections/color_by_type.dart';
 
 class TypeCard extends StatelessWidget{
   TypeCard({
