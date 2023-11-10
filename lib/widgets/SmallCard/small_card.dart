@@ -32,11 +32,16 @@ class SmallCard extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
+                alignment: Alignment.center,
                 children:[
-                  Positioned.fill(
-                    child: Image.network("https://cdn.imgbin.com/13/20/18/imgbin-pok-ball-pok-mon-go-computer-icons-pokemon-go-ypKEEbx02zhFCsMwmbGN6vzxt.jpg")
+                  Image.network(
+                    "https://cdn-icons-png.flaticon.com/512/1068/1068729.png", 
+                    width: 150,
+                    height: 150,
+                    color: Colors.white70, 
+                    opacity: AlwaysStoppedAnimation(0.4),
                   ),
-                  ImageSvg(name: pokemonCard.name, width: 90, height: 90,)
+                  ImageSvg(name: pokemonCard.name, width: 100, height: 100,)
                 ] 
               ),
               SizedBox(height: 10,),
