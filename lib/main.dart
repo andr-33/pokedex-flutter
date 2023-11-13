@@ -39,6 +39,12 @@ class MyAppState extends ChangeNotifier {
   String pokemonNameSelected = "";
 //hacer una carpeta que se llame provider
 //copiar esta clase
+  int _offset = 0;
+  int _limit = 20;
+
+  int get offset => _offset;
+  int get limit => _offset;
+
 
   void selectedPokemon() {
     isPokemonSelected = true;
@@ -52,6 +58,18 @@ class MyAppState extends ChangeNotifier {
 
   void selectedPokemonName(String pokemonName) {
     pokemonNameSelected = pokemonName;
+    notifyListeners();
+  }
+
+  void increment(){
+    _offset = _offset += 20;
+    _limit = _limit += 20;
+    notifyListeners();
+  }
+
+  void decrement(){
+    _offset = _offset -= 20;
+    _limit = _limit += 20;
     notifyListeners();
   }
 }
@@ -76,25 +94,42 @@ class AllPokemosPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myPokemonAppState = Provider.of<MyAppState>(context);
+    print(myPokemonAppState.offset);
     return Scaffold(
-      body: Center(
-        child: FutureBuilder<List<dynamic>>(
-          future: getAllPokemons(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.count(
-                crossAxisCount: 2,
-                children: snapshot.data!
-                    .map((pokemon) => SmallCard(pokemonCard: pokemon))
-                    .toList(),
-              );
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-
-            return const CircularProgressIndicator();
-          },
-        ),
+      appBar: AppBar(),
+      body: FutureBuilder<List<dynamic>>(
+        future: getAllPokemons(myPokemonAppState.offset, myPokemonAppState.limit),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GridView.count(
+              crossAxisCount: 2,
+              children: snapshot.data!
+                  .map((pokemon) => SmallCard(pokemonCard: pokemon))
+                  .toList(),
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          return const CircularProgressIndicator();
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int value){
+          myPokemonAppState.increment();
+          print(myPokemonAppState.offset);
+        },
+        backgroundColor: Colors.transparent, 
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_circle_left_outlined),
+            label: 'Previous',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_circle_right_outlined),
+            label: 'Next',
+          ),
+        ],
       ),
     );
   }
