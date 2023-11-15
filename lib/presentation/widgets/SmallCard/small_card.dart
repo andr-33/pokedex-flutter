@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_pokedex/widgets/ImageSvg/image_svg.dart';
+import 'package:mobile_pokedex/presentation/widgets/PokemonImageSvg/pokemon_image_svg.dart';
 import 'package:mobile_pokedex/main.dart';
-import 'package:mobile_pokedex/models/pokemon_model.dart';
+import 'package:mobile_pokedex/domain/models/pokemon_model.dart';
 import 'package:provider/provider.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
@@ -41,7 +41,7 @@ class SmallCard extends StatelessWidget{
                     color: Colors.white70, 
                     opacity: AlwaysStoppedAnimation(0.4),
                   ),
-                  ImageSvg(name: pokemonCard.name, width: 100, height: 100,)
+                  PokemonImageSvg(name: pokemonCard.name, width: 100, height: 100,)
                 ] 
               ),
               SizedBox(height: 10,),

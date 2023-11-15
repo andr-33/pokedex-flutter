@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile_pokedex/services/pokemon_service.dart';
+import 'package:mobile_pokedex/domain/services/pokemon_services.dart';
 
-class ImageSvg extends StatelessWidget{
-  ImageSvg({
+class PokemonImageSvg extends StatelessWidget{
+  PokemonImageSvg({
     super.key,
     required this.width,
     required this.height,

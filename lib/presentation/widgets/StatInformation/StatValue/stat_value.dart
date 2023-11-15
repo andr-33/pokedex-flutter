@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_pokedex/models/pokemon_model.dart';
+import 'package:mobile_pokedex/domain/models/stat_model.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
 class StatValue extends StatelessWidget{

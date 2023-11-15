@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile_pokedex/widgets/SecondaryCard/BodyMeasurement%20Value/body%20_measurement%20_value.dart';
+import 'package:mobile_pokedex/presentation/widgets/SecondaryCard/BodyMeasurement%20Value/body%20_measurement%20_value.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
 import '../StatInformation/stat_information.dart';
