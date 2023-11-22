@@ -26,11 +26,11 @@ Future<String> getPokemonImage(String name) async{
   }
 }
 
-Future<List<dynamic>> getAllPokemons(int offset, int limit) async{
-  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=$offset&limit=$limit'));
+Future<List<dynamic>> getAllPokemons(int offset) async{
+  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=$offset&limit=20'));
 
   if(res.statusCode == 200){
-    return jsonDecode(res.body)['results'].map((result)=> PokemonCard(name: result['name'], infoURL: result['url'])).toList();
+    return jsonDecode(res.body)['results'].map((result)=> result['name']).toList();
   }
   else{
     throw Exception('Failed to get pokemos data');

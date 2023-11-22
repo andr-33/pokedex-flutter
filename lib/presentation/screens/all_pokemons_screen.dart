@@ -1,40 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_pokedex/domain/services/pokemon_services.dart';
-import 'package:mobile_pokedex/main.dart';
+import 'package:mobile_pokedex/presentation/provider/pokemon_provider.dart';
 import 'package:mobile_pokedex/presentation/widgets/SmallCard/small_card.dart';
 import 'package:provider/provider.dart';
 
-class AllPokemosScreen extends StatelessWidget {
-  AllPokemosScreen({super.key});
+class AllPokemosScreen extends StatefulWidget {
+  @override
+  _AllPokemonsScreenState createState() => _AllPokemonsScreenState();
+}
 
+class _AllPokemonsScreenState extends State<AllPokemosScreen> {
+  int _acctionIndex = 1;
   @override
   Widget build(BuildContext context) {
-    final myPokemonAppState = context.watch<MyAppState>();
-    print(myPokemonAppState.offset);
+    final pokemonProvider = context.watch<PokemonProvider>();
+    int offset = pokemonProvider.offset;
+
+    void switchAction(int index) {
+      setState(() {
+        _acctionIndex = index;
+      });
+
+      switch (index) {
+        case 0:
+          pokemonProvider.previousPokemons();
+          break;
+        case 1:
+          pokemonProvider.nextPokemons();
+          break;
+      }
+    }
+
     return Scaffold(
-      appBar: AppBar(),
       body: FutureBuilder<List<dynamic>>(
-        future: getAllPokemons(myPokemonAppState.offset, myPokemonAppState.limit),
+        future: getAllPokemons(offset),
         builder: (context, snapshot) {
+          Widget pokemonGrid;
           if (snapshot.hasData) {
-            return GridView.count(
-              crossAxisCount: 2,
-              children: snapshot.data!
-                  .map((pokemon) => SmallCard(pokemonCard: pokemon))
-                  .toList(),
-            );
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            List<dynamic> pokemonName = snapshot.data!;
+            pokemonGrid = SliverGrid(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return SmallCard(name: pokemonName[index]);
+                }),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8));
           }
-          return const CircularProgressIndicator();
+          else{
+            pokemonGrid = SliverToBoxAdapter(child: CircularProgressIndicator(),);
+          }
+
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 20,
+                backgroundColor: Colors.red[200],
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text("Pokdex :)"),
+                ),
+              ),
+              pokemonGrid
+            ],
+          );
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (int value){
-          myPokemonAppState.increment();
-          print(myPokemonAppState.offset);
-        },
-        backgroundColor: Colors.transparent, 
+        onTap: switchAction,
+        currentIndex: _acctionIndex,
+        backgroundColor: Colors.red[400],
+        unselectedItemColor: Colors.grey[600],
+        selectedItemColor: Colors.white70,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.arrow_circle_left_outlined),

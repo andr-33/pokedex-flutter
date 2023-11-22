@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_pokedex/domain/collections/color_by_type.dart';
 import 'package:mobile_pokedex/domain/models/pokemon_model.dart';
 import 'package:mobile_pokedex/domain/services/pokemon_services.dart';
-import 'package:mobile_pokedex/main.dart';
+import 'package:mobile_pokedex/presentation/provider/pokemon_provider.dart';
 import 'package:mobile_pokedex/presentation/widgets/PokemonImageSvg/pokemon_image_svg.dart';
 import 'package:mobile_pokedex/presentation/widgets/SecondaryCard/secondary_card.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +12,9 @@ class PokemonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pokemonName = appState.pokemonNameSelected;
+    final pokemonProvider = context.watch<PokemonProvider>();
+    final pokemonName = pokemonProvider.pokemonNameSelected;
+    
     ColorByType colorByType = ColorByType();
 
     return FutureBuilder<Pokemon>(
@@ -25,7 +26,7 @@ class PokemonScreen extends StatelessWidget {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back_rounded),
                   onPressed: () {
-                    appState.deselectPokemon();
+                    pokemonProvider.deselectPokemon();
                   },
                 ),
                 backgroundColor: colorByType

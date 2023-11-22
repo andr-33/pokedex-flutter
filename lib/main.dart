@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_pokedex/presentation/provider/pokemon_provider.dart';
 import 'package:mobile_pokedex/presentation/screens/pokemon_screen.dart';
 import 'package:mobile_pokedex/presentation/screens/all_pokemons_screen.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
+      create: (context) => PokemonProvider(),
       child: MaterialApp(
         title: 'My Pokedex',
         theme: ThemeData(
@@ -25,51 +26,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppState extends ChangeNotifier {
-  bool isPokemonSelected = false;
-  String pokemonNameSelected = "";
-//hacer una carpeta que se llame provider
-//copiar esta clase
-  int _offset = 0;
-  int _limit = 20;
-
-  int get offset => _offset;
-  int get limit => _offset;
-
-
-  void selectedPokemon() {
-    isPokemonSelected = true;
-    notifyListeners();
-  }
-
-  void deselectPokemon() {
-    isPokemonSelected = false;
-    notifyListeners();
-  }
-
-  void selectedPokemonName(String pokemonName) {
-    pokemonNameSelected = pokemonName;
-    notifyListeners();
-  }
-
-  void increment(){
-    _offset = _offset += 20;
-    _limit = _limit += 20;
-    notifyListeners();
-  }
-
-  void decrement(){
-    _offset = _offset -= 20;
-    _limit = _limit += 20;
-    notifyListeners();
-  }
-}
-
 //Home page
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
+    var appState = context.watch<PokemonProvider>();
 
     bool isPokemonSelected = appState.isPokemonSelected;
 
@@ -78,8 +39,3 @@ class HomePage extends StatelessWidget {
     return page;
   }
 }
-
-//All pokemos page
-
-
-//Pokemon page
