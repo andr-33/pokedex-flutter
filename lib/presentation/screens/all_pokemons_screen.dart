@@ -3,6 +3,7 @@ import 'package:mobile_pokedex/domain/services/pokemon_services.dart';
 import 'package:mobile_pokedex/presentation/provider/pokemon_provider.dart';
 import 'package:mobile_pokedex/presentation/widgets/SmallCard/small_card.dart';
 import 'package:provider/provider.dart';
+import 'package:stroke_text/stroke_text.dart';
 
 class AllPokemosScreen extends StatefulWidget {
   @override
@@ -35,34 +36,37 @@ class _AllPokemonsScreenState extends State<AllPokemosScreen> {
       body: FutureBuilder<List<dynamic>>(
         future: getAllPokemons(offset),
         builder: (context, snapshot) {
-          Widget pokemonGrid;
           if (snapshot.hasData) {
             List<dynamic> pokemonName = snapshot.data!;
-            pokemonGrid = SliverGrid(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return SmallCard(name: pokemonName[index]);
-                }),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 4));
-          }
-          else{
-            pokemonGrid = SliverToBoxAdapter(child: CircularProgressIndicator(),);
-          }
-
-          return CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 30,
-                backgroundColor: Colors.red[400],
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text("Pokedex", style: TextStyle(fontFamily: 'Pokemon', color: Colors.amber[400], fontSize: 32)),
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: 30,
+                  backgroundColor: Colors.red[400],
+                  flexibleSpace: FlexibleSpaceBar(
+                      title: StrokeText(
+                    text: 'Pokedex',
+                    textStyle: TextStyle(
+                        fontFamily: 'Pokemon',
+                        color: Colors.amber[400],
+                        fontSize: 34),
+                    strokeColor: Colors.blue,
+                    strokeWidth: 5,
+                  )),
                 ),
-              ),
-              pokemonGrid
-            ],
-          );
+                SliverGrid(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      return SmallCard(name: pokemonName[index]);
+                    }),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 4,
+                        mainAxisSpacing: 4))
+              ],
+            );
+          } else if(snapshot.hasError){}
+
+          return const CircularProgressIndicator();
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
