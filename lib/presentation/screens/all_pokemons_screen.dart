@@ -44,8 +44,8 @@ class _AllPokemonsScreenState extends State<AllPokemosScreen> {
                 }),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8));
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 4));
           }
           else{
             pokemonGrid = SliverToBoxAdapter(child: CircularProgressIndicator(),);
@@ -54,10 +54,10 @@ class _AllPokemonsScreenState extends State<AllPokemosScreen> {
           return CustomScrollView(
             slivers: [
               SliverAppBar(
-                expandedHeight: 20,
-                backgroundColor: Colors.red[200],
+                expandedHeight: 30,
+                backgroundColor: Colors.red[400],
                 flexibleSpace: FlexibleSpaceBar(
-                  title: Text("Pokdex :)"),
+                  title: Text("Pokedex", style: TextStyle(fontFamily: 'Pokemon', color: Colors.amber[400], fontSize: 32)),
                 ),
               ),
               pokemonGrid

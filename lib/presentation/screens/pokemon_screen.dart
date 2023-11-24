@@ -14,7 +14,7 @@ class PokemonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final pokemonProvider = context.watch<PokemonProvider>();
     final pokemonName = pokemonProvider.pokemonNameSelected;
-    
+
     ColorByType colorByType = ColorByType();
 
     return FutureBuilder<Pokemon>(
@@ -34,10 +34,9 @@ class PokemonScreen extends StatelessWidget {
                     .withOpacity(0.8),
               ),
               body: Container(
-                  decoration: BoxDecoration(
-                      color: colorByType
-                          .getColorByType(snapshot.data!.types[0].name)
-                          .withOpacity(0.8)),
+                  color: colorByType
+                      .getColorByType(snapshot.data!.types[0].name)
+                      .withOpacity(0.8),
                   child: Column(children: [
                     PokemonImageSvg(width: 200, height: 200, name: pokemonName),
                     SizedBox(height: 10),

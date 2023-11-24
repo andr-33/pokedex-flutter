@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile_pokedex/presentation/widgets/SecondaryCard/BodyMeasurement%20Value/body%20_measurement%20_value.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
 import '../StatInformation/stat_information.dart';
+import 'BodyMeasurement Value/body_measurement_value.dart';
 import 'TypeCard/type_card.dart';
 
 class SecondaryCard extends StatelessWidget {

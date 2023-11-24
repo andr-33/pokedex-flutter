@@ -24,4 +24,10 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+  fonts:
+    - family: Pokemon
+      fonts:
+      - asset: lib/assets/fonts/Pokemon Solid.ttf
+  assets:
+    - lib/assets/icons/
   uses-material-design: true

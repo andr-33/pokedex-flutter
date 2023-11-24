@@ -22,7 +22,7 @@ class SmallCard extends StatelessWidget{
          pokemonProvider.selectedPokemonName(name);
       } ,
       child: Container(
-        margin: EdgeInsets.all(5),
+        margin: EdgeInsets.all(2.5),
         decoration: BoxDecoration(
           color: Colors.blueGrey[200],
           borderRadius: BorderRadius.all(Radius.circular(20))
@@ -46,7 +46,7 @@ class SmallCard extends StatelessWidget{
               SizedBox(height: 10,),
               Text(name.capitalize(),
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: Colors.white70
                 ),
