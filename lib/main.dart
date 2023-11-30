@@ -1,12 +1,8 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_pokedex/presentation/provider/pokemon_provider.dart';
+import 'package:mobile_pokedex/presentation/screens/pokemon_screen.dart';
+import 'package:mobile_pokedex/presentation/screens/all_pokemons_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-//models
-import './models/pokemon_model.dart';
-//services
-import './services/pokemon_service.dart';
-
 void main() {
   runApp(MyApp());
 }
@@ -17,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
+      create: (context) => PokemonProvider(),
       child: MaterialApp(
         title: 'My Pokedex',
         theme: ThemeData(
@@ -30,103 +26,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppState extends ChangeNotifier {
-  
-}
-
 //Home page
-
-class HomePage extends StatelessWidget{
-  const HomePage({super.key});
-
+class HomePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      body: Center(
-        child: FutureBuilder<List<dynamic>>(
-          future: getAllPokemons(),
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), 
-                itemBuilder: (context, index){
-                  return Text(snapshot.data![index].name); //Hay un fallo por aca
-                }
-              );
-            }
-            else if(snapshot.hasError){
-              return Text('${snapshot.error}');
-            }
+  Widget build(BuildContext context) {
+    var appState = context.watch<PokemonProvider>();
 
-            return const CircularProgressIndicator();
-          },
-        ),
-      ),
-    );
+    bool isPokemonSelected = appState.isPokemonSelected;
+
+    Widget page = isPokemonSelected ? PokemonScreen() : AllPokemosScreen();
+
+    return page;
   }
 }
-
-
-//Pokemon page
-class PokemonPage extends StatefulWidget{
-  const PokemonPage({super.key});
-
-  @override
-  State<PokemonPage> createState()=> _PokemonPageState();
-}
-
-class _PokemonPageState extends State<PokemonPage>{
-  late Future<Pokemon> futurePokemon;
-
-  @override
-  void initState(){
-    super.initState();
-    futurePokemon = getPokemon();
-  }
-
-  @override
-  Widget build(BuildContext context){
-
-    return Scaffold(
-      body: Center(
-        child: FutureBuilder<Pokemon>(
-          future: futurePokemon,
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              return PokemonView(pokemon: snapshot.data!);
-            }
-            else if(snapshot.hasError){
-              return Text('${snapshot.error}');
-            }
-
-            return const CircularProgressIndicator();
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class PokemonView extends StatelessWidget{
-  const PokemonView({super.key, required this.pokemon});
-
-  final Pokemon pokemon;
-
-  @override
-  Widget build(BuildContext context){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.network(pokemon.imgURL, width: 250, height: 250,),
-        Text(pokemon.name),
-        for(var stat in pokemon.stats)
-          Text('${stat.name}: ${stat.baseValue}'),
-        for(var type in pokemon.types)
-          Text('${type.name}')
-      ],
-    );
-  }
-
-}
-
-

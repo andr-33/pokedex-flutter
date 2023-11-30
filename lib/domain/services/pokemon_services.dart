@@ -4,8 +4,8 @@ import 'dart:convert';
 //models
 import '../models/pokemon_model.dart';
 
-Future<Pokemon> getPokemon() async{
-  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/bulbasaur'));
+Future<Pokemon> getPokemonByName(String name) async{
+  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
   
   if(res.statusCode == 200){
     return Pokemon.fromJson(jsonDecode(res.body));
@@ -15,8 +15,8 @@ Future<Pokemon> getPokemon() async{
   }
 }
 
-Future<String> getPokemonImage(int id) async{
-  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id'));
+Future<String> getPokemonImage(String name) async{
+  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$name'));
 
   if(res.statusCode == 200){
     return jsonDecode(res.body)['sprites']['other']['dream_world']['front_default'];
@@ -26,11 +26,11 @@ Future<String> getPokemonImage(int id) async{
   }
 }
 
-Future<List<dynamic>> getAllPokemons() async{
-  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?limit=50'));
+Future<List<dynamic>> getAllPokemons(int offset) async{
+  final res = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=$offset&limit=20'));
 
   if(res.statusCode == 200){
-    return jsonDecode(res.body)['results'].map((result)=> PokemonCard(name: result['name'], infoURL: result['url'])).toList();
+    return jsonDecode(res.body)['results'].map((result)=> result['name']).toList();
   }
   else{
     throw Exception('Failed to get pokemos data');
