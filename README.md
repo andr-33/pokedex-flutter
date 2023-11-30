@@ -6,9 +6,9 @@ El típico proyecto para comenzar una practicar una nueva tecnología, decidí h
 * Diseño de Widgets
 * Estructurar un proyecto en Flutter
 
-## Captura de pantalla
+## Capturas de pantalla
 
-![Pagina principal](/public/project_images/pokemons.png)
-![Información del pokemon](public/project_images/pokemon.png)
+<img src="public/project_images/pokemons.png" alt="Pagina principal" width="540" height="1110">
+<img src="public/project_images/pokemon.png" alt="Vista de pokemon" width="540" height="1110">
 
 
