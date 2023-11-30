@@ -8,7 +8,14 @@ El típico proyecto para comenzar una practicar una nueva tecnología, decidí h
 
 ## Capturas de pantalla
 
-<img src="public/project_images/pokemons.png" alt="Pagina principal" width="540" height="1110">
-<img src="public/project_images/pokemon.png" alt="Vista de pokemon" width="540" height="1110">
+<figure>
+  <img src="public/project_images/pokemons.png" alt="Página principal" width="270" height="555">
+  <figcaption>Página principal</figcaption>
+</figure>
+
+<figure>
+  <img src="public/project_images/pokemon.png" alt="Vista de pokemon" width="270" height="555">
+  <figcaption>Vista de pokemon</figcaption>
+</figure>
 
 
