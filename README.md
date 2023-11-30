@@ -9,13 +9,13 @@ El típico proyecto para comenzar una practicar una nueva tecnología, decidí h
 ## Capturas de pantalla
 
 <figure>
+  <figcaption><b>Página principal</b></figcaption>
   <img src="public/project_images/pokemons.png" alt="Página principal" width="270" height="555">
-  <figcaption>Página principal</figcaption>
 </figure>
 
 <figure>
+  <figcaption><b>Vista de pokemon</b></figcaption>
   <img src="public/project_images/pokemon.png" alt="Vista de pokemon" width="270" height="555">
-  <figcaption>Vista de pokemon</figcaption>
 </figure>
 
 
