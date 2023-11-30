@@ -1,16 +1,21 @@
-# mobile_pokedex
+# Pokedex con Flutter
 
-A new Flutter project.
+El típico proyecto para comenzar una practicar una nueva tecnología, decidí hacer una Pokedex para poder practicar: 
 
-## Getting Started
+* Consumo de APIs
+* Diseño de Widgets
+* Estructurar un proyecto en Flutter
 
-This project is a starting point for a Flutter application.
+## Capturas de pantalla
 
-A few resources to get you started if this is your first Flutter project:
+<figure>
+  <figcaption><b>Página principal</b></figcaption>
+  <img src="public/project_images/pokemons.png" alt="Página principal" width="270" height="555">
+</figure>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<figure>
+  <figcaption><b>Vista de pokemon</b></figcaption>
+  <img src="public/project_images/pokemon.png" alt="Vista de pokemon" width="270" height="555">
+</figure>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
